@@ -11,7 +11,7 @@ import com.javaex.vo.GuestbookVo;
 
 public class GuestbookDao {
 
-	public void insert( GuestbookVo vo) {
+	public void insert(GuestbookVo vo) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -93,11 +93,11 @@ public class GuestbookDao {
 		    
 		    vo.setNo(no);
 		    vo.setName(name);
-		    vo.setPassword(password);//메모리에만 넣은거니까 add해줘야함 
+		    vo.setPassword(password);
 		    vo.setContent(content);
 		    vo.setRegDate(date);
 		    
-		    gList.add(vo);
+		    gList.add(vo);//메모리에만 넣은거니까 add해줘야함 
 		    
 		    
 		   } 
@@ -171,4 +171,5 @@ public class GuestbookDao {
 		
 		
 	}
+	
 }

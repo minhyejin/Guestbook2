@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.javaex.dao.GuestbookDao;
+import com.javaex.util.WebUtil;
 import com.javaex.vo.GuestbookVo;
 
 
@@ -30,10 +31,11 @@ public class GuestbookServlet extends HttpServlet {
 	
 			GuestbookDao dao = new GuestbookDao();
            List<GuestbookVo> list = dao.getList();
- 			
  			request.setAttribute("list", list);
- 			RequestDispatcher rd = request.getRequestDispatcher("list.jsp");
- 			rd.forward(request, response);
+           WebUtil.forward(request, response, "/WEB-INF/list.jsp");
+ 			
+ 			/*RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/list.jsp");
+ 			rd.forward(request, response);*/
 			
 		}else if("add".equals(actionName)) {
 			System.out.println("add 진입");
@@ -48,7 +50,8 @@ public class GuestbookServlet extends HttpServlet {
 			GuestbookDao dao = new GuestbookDao();
 			dao.insert(vo);
 			
-			response.sendRedirect("gb?a=list");
+			WebUtil.redirect(request, response, "/guestbook2/gb?a=list");
+			/*response.sendRedirect("/guestbook2/gb?a=list");*/
 			
  		} else if("delete".equals(actionName)) {
  			System.out.println("delete 진입");
@@ -58,7 +61,8 @@ public class GuestbookServlet extends HttpServlet {
  			String password = request.getParameter("password");
  	
  			dao.delete(no, password);
- 			response.sendRedirect("gb?a=list");
+ 			WebUtil.redirect(request, response, "/guestbook2/gb?a=list");
+ 			/*response.sendRedirect("/guestbook2/gb?a=list");*/
  			
  		} 
  		else if("deleteform".equals(actionName)) {
@@ -68,10 +72,12 @@ public class GuestbookServlet extends HttpServlet {
 		
  			request.setAttribute("no", no);
  			
- 			RequestDispatcher rd;
-			rd = request.getRequestDispatcher("deleteform.jsp");
+ 			WebUtil.forward(request, response, "/WEB-INF/deleteform.jsp");
+ 			
+ 			/*RequestDispatcher rd;
+			rd = request.getRequestDispatcher("/WEB-INF/deleteform.jsp");
 			rd.forward(request, response);
- 	
+ 	*/
  			
  		}else {
  			System.out.println("잘못된 a값 처리");

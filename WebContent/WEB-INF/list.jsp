@@ -1,7 +1,5 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.javaex.dao.GuestbookDao" %>
-<%@ page import="com.javaex.vo.GuestbookVo"%>
-<%@ page import="java.util.List" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="gb" method="post">
+	<form action="/guestbook2/gb" method="post">
 	<table border=1 width=500>
 		<tr>
 			<td>이름</td><td><input type="text" name="name"></td>
@@ -26,29 +24,22 @@
 	</form>
 	<br/>
 		    
-<% GuestbookDao dao = new GuestbookDao();
-		List<GuestbookVo> gList = dao.getList();
-		
-		for(GuestbookVo gVo : gList){
-			int no = gVo.getNo();
-			String name = gVo.getName();
-			String content = gVo.getContent();
-			String date = gVo.getRegDate();
-	%>
+   <c:forEach items = "${list }" var = "gVo">
 	<table width=510 border=1>
 			<tr>
-	<td><%=no %></td>
-	<td><%=name %></td>
-	<td><%=date %></td>
-	<td><a href="gb?a=deleteform&no=<%=no %>">삭제</a></td>
+	<td>${gVo.no }</td>
+	<td>${gVo.name }</td>
+	<td>${gVo.regDate }</td>
+	
+	<td><a href="/guestbook2/gb?a=deleteform&no=${gVo.no }">삭제</a></td>
 			</tr>
 			<tr>
-				<td colspan=4><%=content %></td>
+				<td colspan=4>${gVo.content }</td>
 			</tr>
 		</table>
 		<br />
 
-	<% } %>
+	</c:forEach>
 	
 </body>
 </html>
